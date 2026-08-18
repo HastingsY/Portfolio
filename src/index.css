@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* Dark theme (default) */
+:root {
+  --color-bg: #080a0f;
+  --color-surface: #141826;
+  --color-surface-2: #1c2133;
+  --color-border: #2e3650;
+  --color-muted: #7a84a0;
+  --color-subtle: #a8b2cc;
+  --color-text: #dde3f0;
+  --color-heading: #f0f4ff;
+  --color-accent: #4fffb0;
+  --color-accent-dim: #1a4d3a;
+  --color-nav-scrolled: rgba(8, 10, 15, 0.95);
+}
+
+/* Light theme */
+[data-theme='light'] {
+  --color-bg: #f4f6fb;
+  --color-surface: #ffffff;
+  --color-surface-2: #eaecf4;
+  --color-border: #d2d7e8;
+  --color-muted: #9aa0b8;
+  --color-subtle: #5c6380;
+  --color-text: #2a2f45;
+  --color-heading: #111521;
+  --color-accent: #007a52;
+  --color-accent-dim: #d0f0e4;
+  --color-nav-scrolled: rgba(244, 246, 251, 0.92);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
