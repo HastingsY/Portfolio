@@ -23,6 +23,10 @@ const PROJECTS = [
     year: "2024",
     link: publicAsset("/Mini_Project_2_report.pdf"),
     pdfLabel: "View Report",
+    repoLink: null,
+    codeNote: "Code available upon request.",
+    impact:
+      "Compared complementary regression and machine-learning approaches to identify the strongest drivers of local home prices.",
     accent: true,
   },
   {
@@ -36,6 +40,11 @@ const PROJECTS = [
       "/Hastings_et_al._2026_-_Mining_User_Forums_to_Evaluate_QIU.pdf",
     ),
     pdfLabel: "View Paper",
+    repoLink: "https://doi.org/10.5281/zenodo.18132283",
+    repoLabel: "Zenodo",
+    codeNote: null,
+    impact:
+      "Analyzed 3,941 threads across four communities and found usability represented 68% of observed quality-in-use discussions.",
     accent: false,
   },
   {
@@ -54,6 +63,11 @@ const PROJECTS = [
     year: "2024",
     link: "https://www.mdpi.com/2073-4441/16/13/1931",
     pdfLabel: "View Paper",
+    repoLink: "https://github.com/HastingsY/GIRF-Pulse-Experiment",
+    repoLabel: "GitHub",
+    codeNote: null,
+    impact:
+      "Connected precipitation pulses, soil conditions, and microbial processes to assess the ecological function of green infrastructure.",
     accent: false,
   },
   {
@@ -73,6 +87,11 @@ const PROJECTS = [
       "/Hastings_et_al._2026_-_Barriers_to_Use_perspectives_on_environmental_research_software.pdf",
     ),
     pdfLabel: "View Paper",
+    repoLink: "https://doi.org/10.5281/zenodo.15492847",
+    repoLabel: "Zenodo",
+    codeNote: null,
+    impact:
+      "Surveyed 45 environmental scientists to identify accessibility, suitability, and experience as major software adoption barriers.",
     accent: false,
   },
 ];
@@ -80,7 +99,7 @@ const PROJECTS = [
 const SKILLS = [
   { category: "Languages", items: ["R", "Python", "SQL"] },
   {
-    category: "ML / Stats",
+    category: "Modeling",
     items: [
       "Random Forest",
       "Regression",
@@ -93,25 +112,34 @@ const SKILLS = [
     category: "NLP",
     items: [
       "Text Mining",
-      "Lexicon Dev.",
-      "Sentiment Analysis",
+      "quanteda",
+      "Lexicon Development",
       "n-gram Analysis",
     ],
   },
   {
-    category: "Data Collect.",
+    category: "Data Work",
     items: [
       "Web Scraping (rvest & BeautifulSoup)",
+      "API Integration",
+      "Data Cleaning",
+      "Exploratory Analysis",
+    ],
+  },
+  {
+    category: "Research",
+    items: [
       "Survey Design",
       "Qualtrics",
-      "API Integration",
+      "Mixed-effects Modeling",
+      "Reproducible Workflows",
     ],
   },
   {
     category: "Visualization",
-    items: ["ggplot2", "matplotlib", "plotly", "Draw.io"],
+    items: ["ggplot2", "matplotlib", "plotly", "ArcGIS", "Draw.io", "WebPIQUE"],
   },
-  { category: "Version Control", items: ["Zenodo", "Git", "GitHub", "GitLab"] },
+  { category: "Collaboration", items: ["Git", "GitHub", "GitLab", "Zenodo"] },
   {
     category: "Documentation",
     items: ["R Markdown", "Jupyter Notebook", "LaTeX"],
@@ -126,6 +154,7 @@ const PUBLICATIONS = [
     venue: "Works in Progress in Embedded Computing (WIPIEC) Journal",
     doi: null,
     year: "2023",
+    status: "Published",
     pdfLink:
       "https://wipiec.digitalheritage.me/index.php/wipiecjournal/article/view/42",
     doiLink: null,
@@ -137,6 +166,7 @@ const PUBLICATIONS = [
     venue: "Water · MDPI (Vol. 16, No. 13)",
     doi: "10.3390/w16131931",
     year: "2024",
+    status: "Published",
     pdfLink: "https://www.mdpi.com/2073-4441/16/13/1931",
     doiLink: "https://doi.org/10.3390/w16131931",
   },
@@ -147,6 +177,7 @@ const PUBLICATIONS = [
     venue: "IEEE SoutheastCon 2026",
     doi: "10.1109/SOUTHEASTCON63549.2026.11476204",
     year: "2026",
+    status: "Published",
     pdfLink: publicAsset(
       "/Hastings_et_al._2026_-_Mining_User_Forums_to_Evaluate_QIU.pdf",
     ),
@@ -159,6 +190,7 @@ const PUBLICATIONS = [
       "ICSOFT 2026 — 21st International Conference on Software Technologies",
     doi: "10.5220/0015086680000408",
     year: "2026",
+    status: "Published",
     pdfLink: publicAsset(
       "/Hastings_et_al._2026_-_Barriers_to_Use_perspectives_on_environmental_research_software.pdf",
     ),
@@ -172,6 +204,7 @@ const PUBLICATIONS = [
       "Proceedings of the 21st International Conference on Evaluation of Novel Approaches to Software Engineering (ENASE)",
     doi: "10.5220/0014925900004015",
     year: "2026",
+    status: "Published",
     pdfLink: null,
     doiLink: "https://doi.org/10.5220/0014925900004015",
   },
@@ -181,6 +214,7 @@ const PUBLICATIONS = [
     venue: "2026 Intermountain Engineering, Technology and Computing (IETC)",
     doi: "10.1109/IETC69527.2026.11568664",
     year: "2026",
+    status: "Published",
     pdfLink: null,
     doiLink: "https://doi.org/10.1109/IETC69527.2026.11568664",
   },
@@ -431,6 +465,220 @@ function VizCard({
   );
 }
 
+const WEBPIQUE_IMAGES = [
+  "PIQUE compare.png",
+  "PIQUE compare 1.png",
+  "PIQUE compare 2.png",
+  "PIQUE project.png",
+  "PIQUE project 1.png",
+  "PIQUE project 2.png",
+  "PIQUE project 3.png",
+  "PIQUE project 4.png",
+  "PIQUE project 5.png",
+  "PIQUE single file.png",
+  "PIQUE single file 1.png",
+  "PIQUE single file 2.png",
+];
+
+function WebPiqueCarousel() {
+  const [index, setIndex] = useState(0);
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setExpanded(false);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
+  const previous = () =>
+    setIndex((currentIndex) =>
+      currentIndex === 0 ? WEBPIQUE_IMAGES.length - 1 : currentIndex - 1,
+    );
+  const next = () =>
+    setIndex((currentIndex) =>
+      currentIndex === WEBPIQUE_IMAGES.length - 1 ? 0 : currentIndex + 1,
+    );
+
+  return (
+    <div className="webpique-carousel">
+      <div className="webpique-image-frame">
+        <button
+          type="button"
+          className="webpique-image-button"
+          onClick={() => setExpanded(true)}
+          aria-label={`Expand WebPIQUE screenshot ${index + 1}`}
+        >
+          <img
+            src={publicAsset(`/${WEBPIQUE_IMAGES[index]}`)}
+            alt={`WebPIQUE Visualizer screenshot ${index + 1} of ${WEBPIQUE_IMAGES.length}`}
+          />
+          <span className="webpique-expand-label">expand ↗</span>
+        </button>
+        <button
+          type="button"
+          className="webpique-carousel-button webpique-carousel-previous"
+          onClick={previous}
+          aria-label="Previous WebPIQUE screenshot"
+        >
+          ←
+        </button>
+        <button
+          type="button"
+          className="webpique-carousel-button webpique-carousel-next"
+          onClick={next}
+          aria-label="Next WebPIQUE screenshot"
+        >
+          →
+        </button>
+      </div>
+      <div className="webpique-carousel-dots" aria-label="WebPIQUE screenshots">
+        {WEBPIQUE_IMAGES.map((image, imageIndex) => (
+          <button
+            key={image}
+            type="button"
+            className={imageIndex === index ? "active" : ""}
+            onClick={() => setIndex(imageIndex)}
+            aria-label={`Show WebPIQUE screenshot ${imageIndex + 1}`}
+            aria-current={imageIndex === index ? "true" : undefined}
+          />
+        ))}
+      </div>
+      {expanded && (
+        <div
+          className="webpique-lightbox"
+          onClick={() => setExpanded(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`WebPIQUE screenshot ${index + 1}`}
+        >
+          <img
+            src={publicAsset(`/${WEBPIQUE_IMAGES[index]}`)}
+            alt={`Expanded WebPIQUE Visualizer screenshot ${index + 1}`}
+            onClick={(event) => event.stopPropagation()}
+          />
+          <button
+            type="button"
+            className="webpique-lightbox-close"
+            onClick={() => setExpanded(false)}
+            aria-label="Close expanded WebPIQUE screenshot"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function EnvironmentalDashboardCard() {
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setExpanded(false);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
+  return (
+    <div className="webpique-callout environmental-dashboard-card">
+      <div className="webpique-copy">
+        <div
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            color: "var(--color-accent)",
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
+            marginBottom: "7px",
+          }}
+        >
+          Research visualization tool
+        </div>
+        <h3
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "20px",
+            color: "var(--color-heading)",
+            marginBottom: "6px",
+          }}
+        >
+          Environmental Monitoring Dashboard
+        </h3>
+        <p
+          style={{
+            color: "var(--color-subtle)",
+            fontSize: "13px",
+            lineHeight: "1.6",
+            marginBottom: "12px",
+          }}
+        >
+          Built in R Shiny to help researchers monitor landscape infrastructure,
+          inspect sensor observations, explore hydrologic trends, and compare
+          estimated irrigation water use and cost across monitored sites.
+        </p>
+        <p
+          style={{
+            color: "var(--color-muted)",
+            fontSize: "12px",
+            lineHeight: "1.6",
+            margin: 0,
+          }}
+        >
+          For more information about the tool design, see my{" "}
+          <a
+            href="https://hastingsy.github.io/Design_Portfolio/projects"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "var(--color-accent)" }}
+          >
+            design portfolio ↗
+          </a>
+          .
+        </p>
+      </div>
+      <button
+        type="button"
+        className="environmental-dashboard-image"
+        onClick={() => setExpanded(true)}
+        aria-label="Expand Environmental Monitoring Dashboard screenshot"
+      >
+        <img
+          src={publicAsset("/LLdashboard_final.png")}
+          alt="Environmental monitoring dashboard with a landscape map, sensor status, hydrologic chart, and irrigation analysis plots."
+        />
+        <span className="webpique-expand-label">expand ↗</span>
+      </button>
+      {expanded && (
+        <div
+          className="webpique-lightbox"
+          onClick={() => setExpanded(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Environmental Monitoring Dashboard screenshot"
+        >
+          <img
+            src={publicAsset("/LLdashboard_final.png")}
+            alt="Expanded Environmental Monitoring Dashboard screenshot"
+            onClick={(event) => event.stopPropagation()}
+          />
+          <button
+            type="button"
+            className="webpique-lightbox-close"
+            onClick={() => setExpanded(false)}
+            aria-label="Close expanded dashboard screenshot"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function VizCarousel() {
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState<number | null>(null);
@@ -441,8 +689,7 @@ function VizCarousel() {
   const maxIndex = total - perPage;
 
   useEffect(() => {
-    const onResize = () =>
-      setPerPage(window.innerWidth <= 640 ? 1 : 2);
+    const onResize = () => setPerPage(window.innerWidth <= 640 ? 1 : 2);
     onResize();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -776,6 +1023,63 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
       >
         {project.pdfLabel} ↗
       </a>
+      {project.repoLink && (
+        <a
+          href={project.repoLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "12px",
+            color: "var(--color-subtle)",
+            textDecoration: "none",
+            border: "1px solid var(--color-border)",
+            padding: "5px 14px",
+            display: "inline-block",
+            marginLeft: "8px",
+            transition: "border-color 0.15s, color 0.15s",
+          }}
+          onMouseEnter={(e) => {
+            const element = e.currentTarget as HTMLElement;
+            element.style.borderColor = "var(--color-subtle)";
+            element.style.color = "var(--color-text)";
+          }}
+          onMouseLeave={(e) => {
+            const element = e.currentTarget as HTMLElement;
+            element.style.borderColor = "var(--color-border)";
+            element.style.color = "var(--color-subtle)";
+          }}
+        >
+          {project.repoLabel} ↗
+        </a>
+      )}
+      <p
+        style={{
+          color: "var(--color-muted)",
+          fontSize: "12px",
+          lineHeight: "1.6",
+          marginTop: "18px",
+          marginBottom: 0,
+        }}
+      >
+        <strong style={{ color: "var(--color-subtle)" }}>
+          Selected impact:
+        </strong>{" "}
+        {project.impact}
+      </p>
+      {project.codeNote && (
+        <p
+          style={{
+            color: "var(--color-muted)",
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            marginTop: "8px",
+            marginBottom: 0,
+          }}
+        >
+          {project.codeNote}
+        </p>
+      )}
     </div>
   );
 }
@@ -1313,7 +1617,7 @@ export default function App() {
                   marginBottom: "6px",
                 }}
               >
-                Yvette D. Hastings
+                Data Scientist
               </h1>
               <h2
                 style={{
@@ -1325,7 +1629,8 @@ export default function App() {
                   marginBottom: "28px",
                 }}
               >
-                Data Scientist · M.S. Computer Science &amp; Geography
+                <span style={{ whiteSpace: "nowrap" }}>Yvette D. Hastings</span>
+                {" · M.S. Computer Science & Geography"}
               </h2>
 
               <p
@@ -1337,84 +1642,26 @@ export default function App() {
                   marginBottom: "40px",
                 }}
               >
-                I analyze complex datasets to uncover patterns and drive
-                decisions — working across environmental science, real estate,
-                and software usability domains. My M.S. in Computer Science from
-                Montana State University focused on NLP and statistical analysis
-                for empirical software engineering research. My M.S. in
-                Geography from the University of Utah applied statistical and
-                causal analysis to investigate nitrogen cycling dynamics in soil
-                systems. Both programs included coursework applying ML and
-                statistical methods to diverse datasets.
+                I turn complex datasets into clear evidence for better
+                decisions, combining statistical modeling, machine learning,
+                NLP, and visualization across environmental science, real
+                estate, and software usability domains. My work connects
+                rigorous research methods with practical questions about people,
+                systems, and the environments they shape.
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <a
-                  href="#projects"
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "13px",
-                    color: "var(--color-bg)",
-                    background: "var(--color-accent)",
-                    padding: "10px 24px",
-                    textDecoration: "none",
-                    letterSpacing: "0.05em",
-                    transition: "opacity 0.15s",
-                  }}
-                  onMouseEnter={(e) =>
-                    ((e.target as HTMLElement).style.opacity = "0.85")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.target as HTMLElement).style.opacity = "1")
-                  }
-                >
+                <a className="hero-action" href="#projects">
                   View Projects
                 </a>
-                <a
-                  href="#publications"
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "13px",
-                    color: "var(--color-text)",
-                    border: "1px solid var(--color-border)",
-                    padding: "10px 24px",
-                    textDecoration: "none",
-                    letterSpacing: "0.05em",
-                    transition: "border-color 0.15s",
-                  }}
-                  onMouseEnter={(e) =>
-                    ((e.target as HTMLElement).style.borderColor =
-                      "var(--color-subtle)")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.target as HTMLElement).style.borderColor =
-                      "var(--color-border)")
-                  }
-                >
+                <a className="hero-action" href="#publications">
                   Publications ↓
                 </a>
                 <a
+                  className="hero-action"
                   href={publicAsset("/Hastings_Resume_data_scientist.pdf")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "13px",
-                    color: "var(--color-text)",
-                    border: "1px solid var(--color-border)",
-                    padding: "10px 24px",
-                    textDecoration: "none",
-                    letterSpacing: "0.05em",
-                    transition: "border-color 0.15s",
-                  }}
-                  onMouseEnter={(e) =>
-                    ((e.target as HTMLElement).style.borderColor =
-                      "var(--color-subtle)")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.target as HTMLElement).style.borderColor =
-                      "var(--color-border)")
-                  }
                 >
                   Resume ↗
                 </a>
@@ -1564,7 +1811,8 @@ export default function App() {
             className="project-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(min(460px, 100%), 1fr))",
+              gridTemplateColumns:
+                "repeat(auto-fill, minmax(min(460px, 100%), 1fr))",
               gap: "1px",
               background: "var(--color-border)",
               border: "1px solid var(--color-border)",
@@ -1586,9 +1834,101 @@ export default function App() {
         }}
       >
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <SectionLabel num="03" label="Visualizations" />
+          <SectionLabel num="03" label="Selected Visualizations" />
 
           <VizCarousel />
+
+          <div
+            style={{
+              marginTop: "28px",
+              padding: "22px 24px",
+              border: "1px solid var(--color-border)",
+              background: "var(--color-surface)",
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1fr) minmax(280px, 1.15fr)",
+              alignItems: "center",
+              gap: "24px",
+            }}
+            className="webpique-callout"
+          >
+            <div className="webpique-copy">
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "11px",
+                  color: "var(--color-accent)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  marginBottom: "7px",
+                }}
+              >
+                Research visualization tool
+              </div>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "20px",
+                  color: "var(--color-heading)",
+                  marginBottom: "6px",
+                }}
+              >
+                WebPIQUE Visualizer
+              </h3>
+              <p
+                style={{
+                  color: "var(--color-subtle)",
+                  fontSize: "13px",
+                  lineHeight: "1.6",
+                  margin: 0,
+                }}
+              >
+                Designed and developed an interactive visualization tool for
+                exploring software quality metrics from the PIQUE framework.
+                Built with React, Vite, D3.js, and TypeScript, it helps users
+                load, analyze, and visualize complex JSON datasets.
+              </p>
+              <p
+                style={{
+                  color: "var(--color-muted)",
+                  fontSize: "12px",
+                  lineHeight: "1.6",
+                  marginTop: "12px",
+                  marginBottom: 0,
+                }}
+              >
+                For more information about the tool design, see my{" "}
+                <a
+                  href="https://hastingsy.github.io/Design_Portfolio/projects"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "var(--color-accent)" }}
+                >
+                  design portfolio ↗
+                </a>
+                .
+              </p>
+              <a
+                href="https://github.com/MSUSEL/WebPIQUE_visualizer"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-block",
+                  marginTop: "18px",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "12px",
+                  color: "var(--color-accent)",
+                  textDecoration: "none",
+                  border: "1px solid var(--color-accent-dim)",
+                  padding: "7px 14px",
+                }}
+              >
+                View on GitHub ↗
+              </a>
+            </div>
+            <WebPiqueCarousel />
+          </div>
+
+          <EnvironmentalDashboardCard />
         </div>
       </section>
 
@@ -1631,9 +1971,9 @@ export default function App() {
                   lineHeight: "1.7",
                 }}
               >
-                Five years building across the full data stack — from feature
-                engineering to production inference systems and interactive
-                dashboards.
+                Applied data science across research and real-world datasets,
+                from data collection and feature engineering through statistical
+                modeling, reproducible analysis, and research visualization.
               </p>
             </div>
             <div>
@@ -1840,6 +2180,17 @@ export default function App() {
 
       <style>{`
         @keyframes pulse {
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "11px",
+              color: "var(--color-muted)",
+              border: "1px solid var(--color-border)",
+              padding: "2px 7px",
+            }}
+          >
+            {pub.status}
+          </span>
           0%, 100% { opacity: 1; }
           50% { opacity: 0.4; }
         }
@@ -1847,6 +2198,190 @@ export default function App() {
           0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
           50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
           100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
+        }
+
+        .hero-action {
+          display: inline-block;
+          padding: 10px 24px;
+          border: 1px solid var(--color-accent);
+          background: var(--color-accent);
+          color: var(--color-bg);
+          font-family: var(--font-mono);
+          font-size: 13px;
+          letter-spacing: 0.05em;
+          text-decoration: none;
+          transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .hero-action:hover {
+          opacity: 0.85;
+        }
+
+        .hero-action:active {
+          opacity: 0.7;
+          transform: translateY(1px);
+        }
+
+        .webpique-carousel {
+          min-width: 0;
+        }
+
+        .environmental-dashboard-card {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(280px, 1.15fr);
+          align-items: center;
+          gap: 24px;
+          margin-top: 20px;
+          padding: 22px 24px;
+          border: 1px solid var(--color-border);
+          background: var(--color-surface);
+        }
+
+        .environmental-dashboard-image {
+          all: unset;
+          position: relative;
+          display: block;
+          overflow: hidden;
+          aspect-ratio: 16 / 9;
+          background: var(--color-surface-2);
+          border: 1px solid var(--color-border);
+          cursor: zoom-in;
+        }
+
+        .environmental-dashboard-image img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+          object-position: top;
+          transition: transform 0.3s ease;
+        }
+
+        .environmental-dashboard-image:hover img {
+          transform: scale(1.02);
+        }
+
+        .webpique-image-frame {
+          position: relative;
+          overflow: hidden;
+          aspect-ratio: 16 / 9;
+          background: var(--color-surface-2);
+          border: 1px solid var(--color-border);
+        }
+
+        .webpique-image-frame img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+        }
+
+        .webpique-image-button {
+          all: unset;
+          display: block;
+          position: relative;
+          width: 100%;
+          height: 100%;
+          cursor: zoom-in;
+        }
+
+        .webpique-image-button img {
+          transition: transform 0.3s ease;
+        }
+
+        .webpique-image-button:hover img {
+          transform: scale(1.02);
+        }
+
+        .webpique-expand-label {
+          position: absolute;
+          right: 10px;
+          bottom: 10px;
+          padding: 2px 8px;
+          background: var(--color-accent);
+          color: var(--color-bg);
+          font-family: var(--font-mono);
+          font-size: 10px;
+        }
+
+        .webpique-lightbox {
+          position: fixed;
+          inset: 0;
+          z-index: 200;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+          background: rgba(0, 0, 0, 0.9);
+          cursor: zoom-out;
+        }
+
+        .webpique-lightbox img {
+          max-width: 92vw;
+          max-height: 88vh;
+          object-fit: contain;
+          box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .webpique-lightbox-close {
+          position: absolute;
+          top: 20px;
+          right: 24px;
+          width: 36px;
+          height: 36px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          background: none;
+          color: #fff;
+          font-family: var(--font-mono);
+          font-size: 16px;
+          cursor: pointer;
+        }
+
+        .webpique-carousel-button {
+          position: absolute;
+          top: 50%;
+          width: 30px;
+          height: 30px;
+          border: 1px solid var(--color-border);
+          background: var(--color-bg);
+          color: var(--color-heading);
+          font-family: var(--font-mono);
+          font-size: 16px;
+          line-height: 1;
+          cursor: pointer;
+          transform: translateY(-50%);
+          opacity: 0.9;
+        }
+
+        .webpique-carousel-button:hover {
+          background: var(--color-accent);
+          color: var(--color-bg);
+        }
+
+        .webpique-carousel-previous { left: 10px; }
+        .webpique-carousel-next { right: 10px; }
+
+        .webpique-carousel-dots {
+          display: flex;
+          justify-content: center;
+          gap: 5px;
+          margin-top: 10px;
+        }
+
+        .webpique-carousel-dots button {
+          width: 6px;
+          height: 6px;
+          padding: 0;
+          border: 0;
+          border-radius: 50%;
+          background: var(--color-border);
+          cursor: pointer;
+        }
+
+        .webpique-carousel-dots button.active {
+          width: 18px;
+          border-radius: 3px;
+          background: var(--color-accent);
         }
 
         @media (max-width: 960px) {
@@ -1874,6 +2409,7 @@ export default function App() {
           .viz-slide { min-width: 100% !important; }
           .viz-slide img { height: 190px !important; }
           .skills-grid, .pubs-grid, .contact-grid { gap: 40px !important; }
+          .webpique-callout, .environmental-dashboard-card { grid-template-columns: 1fr !important; align-items: start !important; gap: 18px !important; }
           .contact-link { align-items: flex-start !important; gap: 12px; }
           .contact-value { text-align: right; overflow-wrap: anywhere; }
         }
