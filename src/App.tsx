@@ -1,4 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import EmailIcon from "@mui/icons-material/Email";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import SchoolIcon from "@mui/icons-material/School";
 
 // ─── Data ───────────────────────────────────────────────────────────────────
 
@@ -110,12 +114,7 @@ const SKILLS = [
   },
   {
     category: "NLP",
-    items: [
-      "Text Mining",
-      "quanteda",
-      "Lexicon Development",
-      "n-gram Analysis",
-    ],
+    items: ["Text Mining", "Lexicon Development", "n-gram Analysis"],
   },
   {
     category: "Data Work",
@@ -128,18 +127,16 @@ const SKILLS = [
   },
   {
     category: "Research",
-    items: [
-      "Survey Design",
-      "Qualtrics",
-      "Mixed-effects Modeling",
-      "Reproducible Workflows",
-    ],
+    items: ["Survey Design", "Qualtrics", "Reproducible Workflows"],
   },
   {
     category: "Visualization",
-    items: ["ggplot2", "matplotlib", "plotly", "ArcGIS", "Draw.io", "WebPIQUE"],
+    items: ["ggplot2", "matplotlib", "plotly", "ArcGIS", "Draw.io"],
   },
-  { category: "Collaboration", items: ["Git", "GitHub", "GitLab", "Zenodo"] },
+  {
+    category: "Collaboration",
+    items: ["Git", "GitHub", "GitLab", "Zenodo", "Overleaf"],
+  },
   {
     category: "Documentation",
     items: ["R Markdown", "Jupyter Notebook", "LaTeX"],
@@ -168,7 +165,7 @@ const PUBLICATIONS = [
     year: "2024",
     status: "Published",
     pdfLink: "https://www.mdpi.com/2073-4441/16/13/1931",
-    doiLink: "https://doi.org/10.3390/w16131931",
+    doiLink: null,
   },
   {
     id: "P3",
@@ -179,9 +176,9 @@ const PUBLICATIONS = [
     year: "2026",
     status: "Published",
     pdfLink: publicAsset(
-      "/Hastings_et_al._2026_-_Mining_User_Forums_to_Evaluate_QIU.pdf",
+      "https://doi.org/10.1109/SOUTHEASTCON63549.2026.11476204",
     ),
-    doiLink: "https://doi.org/10.1109/SOUTHEASTCON63549.2026.11476204",
+    doiLink: null,
   },
   {
     id: "P4",
@@ -192,9 +189,9 @@ const PUBLICATIONS = [
     year: "2026",
     status: "Published",
     pdfLink: publicAsset(
-      "/Hastings_et_al._2026_-_Barriers_to_Use_perspectives_on_environmental_research_software.pdf",
+      "https://www.scitepress.org/PublicationsDetail.aspx?ID=lHvmmbwVaZs=&t=1",
     ),
-    doiLink: "https://doi.org/10.5220/0015086680000408",
+    doiLink: null,
   },
   {
     id: "P5",
@@ -205,8 +202,9 @@ const PUBLICATIONS = [
     doi: "10.5220/0014925900004015",
     year: "2026",
     status: "Published",
-    pdfLink: null,
-    doiLink: "https://doi.org/10.5220/0014925900004015",
+    pdfLink:
+      "https://www.scitepress.org/Link.aspx?doi=10.5220/0014925900004015",
+    doiLink: null,
   },
   {
     id: "P6",
@@ -215,8 +213,8 @@ const PUBLICATIONS = [
     doi: "10.1109/IETC69527.2026.11568664",
     year: "2026",
     status: "Published",
-    pdfLink: null,
-    doiLink: "https://doi.org/10.1109/IETC69527.2026.11568664",
+    pdfLink: "https://doi.org/10.1109/IETC69527.2026.11568664",
+    doiLink: null,
   },
 ];
 
@@ -2082,73 +2080,45 @@ export default function App() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="contact-icons">
               {[
                 {
                   label: "Email",
-                  value: "yvettehastings6@gmail.com",
+                  icon: EmailIcon,
                   href: "mailto:yvettehastings6@gmail.com",
                 },
                 {
                   label: "GitHub",
-                  value: "github.com/HastingsY",
+                  icon: GitHubIcon,
                   href: "https://github.com/HastingsY",
                 },
                 {
                   label: "LinkedIn",
-                  value: "linkedin.com/in/yvette-hastings-2a47231b",
+                  icon: LinkedInIcon,
                   href: "https://www.linkedin.com/in/yvette-hastings-2a47231b/",
                 },
                 {
                   label: "Google Scholar",
-                  value: "scholar.google.com/citations?user=W4FhoM8AAAAJ",
+                  icon: SchoolIcon,
                   href: "https://scholar.google.com/citations?user=W4FhoM8AAAAJ&hl=en",
                 },
-              ].map(({ label, value, href }) => (
-                <a
-                  key={label}
-                  className="contact-link"
-                  href={href}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "16px 0",
-                    borderBottom: "1px solid var(--color-border)",
-                    textDecoration: "none",
-                    transition: "border-color 0.15s",
-                  }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget;
-                    el.style.borderColor = "var(--color-subtle)";
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget;
-                    el.style.borderColor = "var(--color-border)";
-                  }}
-                >
-                  <span
-                    className="contact-value"
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "11px",
-                      color: "var(--color-muted)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                    }}
-                  >
-                    {label}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "13px",
-                      color: "var(--color-accent)",
-                    }}
-                  >
-                    {value} ↗
-                  </span>
-                </a>
+              ].map(({ label, icon, href }) => (
+                (() => {
+                  const Icon = icon;
+                  return (
+                    <a
+                      key={label}
+                      className="contact-icon-link"
+                      href={href}
+                      target={label === "Email" ? undefined : "_blank"}
+                      rel={label === "Email" ? undefined : "noopener noreferrer"}
+                      aria-label={label}
+                      title={label}
+                    >
+                      <Icon aria-hidden="true" />
+                    </a>
+                  );
+                })()
               ))}
             </div>
           </div>
@@ -2220,6 +2190,41 @@ export default function App() {
         .hero-action:active {
           opacity: 0.7;
           transform: translateY(1px);
+        }
+
+        .contact-icons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          align-items: center;
+        }
+
+        .contact-icon-link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+          border: 1px solid var(--color-border);
+          color: var(--color-accent);
+          font-family: var(--font-mono);
+          font-size: 14px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: background 0.15s ease, border-color 0.15s ease,
+            color 0.15s ease, transform 0.15s ease;
+        }
+
+        .contact-icon-link:hover,
+        .contact-icon-link:focus-visible {
+          background: var(--color-accent-dim);
+          border-color: var(--color-accent);
+          color: var(--color-heading);
+          transform: translateY(-2px);
+        }
+
+        .contact-icon-link:active {
+          transform: translateY(0);
         }
 
         .webpique-carousel {
@@ -2410,8 +2415,6 @@ export default function App() {
           .viz-slide img { height: 190px !important; }
           .skills-grid, .pubs-grid, .contact-grid { gap: 40px !important; }
           .webpique-callout, .environmental-dashboard-card { grid-template-columns: 1fr !important; align-items: start !important; gap: 18px !important; }
-          .contact-link { align-items: flex-start !important; gap: 12px; }
-          .contact-value { text-align: right; overflow-wrap: anywhere; }
         }
       `}</style>
     </div>
