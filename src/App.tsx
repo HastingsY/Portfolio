@@ -628,7 +628,7 @@ function EnvironmentalDashboardCard() {
         >
           For more information about the tool design, see my{" "}
           <a
-            href="https://hastingsy.github.io/Design_Portfolio/projects"
+              href="https://hastingsy.github.io/Design_Portfolio/"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: "var(--color-accent)" }}
@@ -1896,7 +1896,7 @@ export default function App() {
               >
                 For more information about the tool design, see my{" "}
                 <a
-                  href="https://hastingsy.github.io/Design_Portfolio/projects"
+                    href="https://hastingsy.github.io/Design_Portfolio/"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: "var(--color-accent)" }}
