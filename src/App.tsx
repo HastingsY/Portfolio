@@ -434,9 +434,23 @@ function VizCard({
 function VizCarousel() {
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState<number | null>(null);
-  const perPage = 2;
+  const [perPage, setPerPage] = useState(() =>
+    typeof window !== "undefined" && window.innerWidth <= 640 ? 1 : 2,
+  );
   const total = VISUALIZATIONS.length;
   const maxIndex = total - perPage;
+
+  useEffect(() => {
+    const onResize = () =>
+      setPerPage(window.innerWidth <= 640 ? 1 : 2);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    setIndex((currentIndex) => Math.min(currentIndex, maxIndex));
+  }, [maxIndex]);
 
   const prev = () => setIndex((i) => Math.max(0, i - 1));
   const next = () => setIndex((i) => Math.min(maxIndex, i + 1));
@@ -471,6 +485,7 @@ function VizCarousel() {
             {VISUALIZATIONS.map((viz, i) => (
               <div
                 key={viz.id}
+                className="viz-slide"
                 style={{
                   minWidth: `${100 / perPage}%`,
                   borderRight:
@@ -1078,7 +1093,7 @@ function Nav({
             borderTop: "1px solid var(--color-border)",
             padding: "16px 48px 24px",
           }}
-          className="md:hidden flex flex-col gap-4"
+          className="mobile-menu md:hidden flex flex-col gap-4"
         >
           {NAV_LINKS.map((link) => (
             <a
@@ -1263,6 +1278,7 @@ export default function App() {
               gap: "60px",
               alignItems: "center",
             }}
+            className="hero-grid"
           >
             <div>
               <div className="flex items-center gap-3 mb-8">
@@ -1545,9 +1561,10 @@ export default function App() {
           <SectionLabel num="02" label="Selected Projects" />
 
           <div
+            className="project-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(460px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(min(460px, 100%), 1fr))",
               gap: "1px",
               background: "var(--color-border)",
               border: "1px solid var(--color-border)",
@@ -1750,6 +1767,7 @@ export default function App() {
               ].map(({ label, value, href }) => (
                 <a
                   key={label}
+                  className="contact-link"
                   href={href}
                   style={{
                     display: "flex",
@@ -1770,6 +1788,7 @@ export default function App() {
                   }}
                 >
                   <span
+                    className="contact-value"
                     style={{
                       fontFamily: "var(--font-mono)",
                       fontSize: "11px",
@@ -1840,8 +1859,23 @@ export default function App() {
         }
 
         @media (max-width: 640px) {
-          section { padding-left: 24px !important; padding-right: 24px !important; }
+          nav { padding-left: 24px !important; padding-right: 24px !important; }
+          section { padding: 72px 24px !important; }
+          section#about { min-height: auto; padding-top: 104px !important; padding-bottom: 72px !important; }
           nav > div { padding-left: 0 !important; padding-right: 0 !important; }
+          .mobile-menu { padding: 16px 0 24px !important; }
+          .hero-grid { gap: 40px !important; }
+          .hero-grid h1 { font-size: clamp(36px, 11vw, 52px) !important; }
+          .hero-grid h2 { font-size: 20px !important; }
+          .hero-grid p { font-size: 14px !important; margin-bottom: 28px !important; }
+          .project-grid { grid-template-columns: 1fr !important; }
+          .project-grid > div { min-width: 0; }
+          .project-grid > div > div { padding: 22px 20px !important; }
+          .viz-slide { min-width: 100% !important; }
+          .viz-slide img { height: 190px !important; }
+          .skills-grid, .pubs-grid, .contact-grid { gap: 40px !important; }
+          .contact-link { align-items: flex-start !important; gap: 12px; }
+          .contact-value { text-align: right; overflow-wrap: anywhere; }
         }
       `}</style>
     </div>
