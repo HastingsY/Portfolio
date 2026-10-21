@@ -175,9 +175,7 @@ const PUBLICATIONS = [
     doi: "10.1109/SOUTHEASTCON63549.2026.11476204",
     year: "2026",
     status: "Published",
-    pdfLink: publicAsset(
-      "https://doi.org/10.1109/SOUTHEASTCON63549.2026.11476204",
-    ),
+    pdfLink: "https://doi.org/10.1109/SOUTHEASTCON63549.2026.11476204",
     doiLink: null,
   },
   {
@@ -188,9 +186,8 @@ const PUBLICATIONS = [
     doi: "10.5220/0015086680000408",
     year: "2026",
     status: "Published",
-    pdfLink: publicAsset(
+    pdfLink:
       "https://www.scitepress.org/PublicationsDetail.aspx?ID=lHvmmbwVaZs=&t=1",
-    ),
     doiLink: null,
   },
   {
